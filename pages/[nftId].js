@@ -22,10 +22,8 @@ function PreviewNFT() {
   };
   const transferNFT = async () => {
     try {
-      console.log("called transfer");
       setDisableInput(true);
       const res = await nftContract.transfer(transferAddress, nftId);
-      console.log(res);
       setDisableInput(false);
     } catch (error) {
       console.log(error);
