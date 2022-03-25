@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { CONTRACTADDRESS, OPENSEAURL } from "../constants";
 import ModalComponent from "../components/ModalComponent";
 import Modal from "react-modal";
+import { useRouter } from "next/router";
 import { constants } from "ethers";
+import Navbar from "../components/Navbar";
 
 Modal.setAppElement("#__next");
 export default function Home() {
   const nftContract = useNFTDrop(CONTRACTADDRESS);
   const address = useAddress();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [allNFT, setAllNFT] = useState();
   const [myNFT, setMyNFT] = useState();
@@ -32,6 +35,7 @@ export default function Home() {
     return (
       <div
         key={i}
+        onClick={() => router.push(nft.metadata.id.toString())}
         className="nft border-4 rounded-xl cursor-pointer hover:-translate-y-4"
       >
         <img src={nft.metadata.image} alt={nft.metadata.name} />
@@ -81,25 +85,11 @@ export default function Home() {
 
   return (
     <>
-      <nav className="flex justify-end" id="root">
-        <div>
-          {address ? (
-            <div className="px-2 py-2 rounded-lg border-2 mr-4 mt-4 bg-slate-800 text-white">
-              {address.substring(0, 9)}...
-              <button onClick={disconnectButton} className="text-red-500 ml-6">
-                X
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={toggleModal}
-              className="px-10 py-2 rounded-lg border-2 mr-4 mt-4 bg-slate-800 text-white"
-            >
-              Connect to wallet
-            </button>
-          )}
-        </div>
-      </nav>
+      <Navbar
+        address={address}
+        disconnectButton={disconnectButton}
+        toggleModal={toggleModal}
+      />
       <h1 className="text-6xl text-center underline">
         {myNFT ? "My Inventory" : "Collection"}
       </h1>
