@@ -1,6 +1,6 @@
 import { useNFTDrop, useAddress, useDisconnect } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
-import { CONTRACTADDRESS,OPENSEAURL } from "../constants";
+import { CONTRACTADDRESS, OPENSEAURL } from "../constants";
 import ModalComponent from "../components/ModalComponent";
 import Modal from "react-modal";
 import { constants } from "ethers";
@@ -12,6 +12,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [allNFT, setAllNFT] = useState();
   const [myNFT, setMyNFT] = useState();
+  const [loading, setLoading] = useState(true);
   const disconnectButton = useDisconnect();
 
   const toggleModal = () => {
@@ -59,15 +60,19 @@ export default function Home() {
     );
   };
   useEffect(async () => {
+    setLoading(true);
     const res = await getAllNFTs();
     setAllNFT(res);
+    setLoading(false);
   }, []);
   useEffect(async () => {
     if (address) {
       // closes the modal
       setIsOpen(false);
+      setLoading(true);
       const myNFTs = await nftContract.getOwned(address);
       setMyNFT(myNFTs);
+      setLoading(false);
     }
     if (!address) {
       setMyNFT("");
@@ -102,14 +107,21 @@ export default function Home() {
         <div className="m-10 grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
           {allNFT &&
             !myNFT &&
+            !loading &&
             allNFT.map((nft, i) => {
               return renderNFT(nft, i);
             })}
           {myNFT &&
+            !loading &&
             myNFT.map((nft, i) => {
               return renderNFT(nft, i);
             })}
         </div>
+        {loading && (
+          <div className="flex items-center justify-center min-h-mine">
+            <h1 className="text-center">Loading</h1>
+          </div>
+        )}
       </section>
       <Modal
         isOpen={isOpen}
