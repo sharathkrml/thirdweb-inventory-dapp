@@ -71,8 +71,8 @@ function PreviewNFT() {
           </>
           <>
             {NFT && (
-              <div className="nft-component">
-                <img src={NFT.metadata.image} />
+              <div className="flex flex-col items-center">
+                <img src={NFT.metadata.image} className="w-1/2" />
                 <h1 className="text-center">Name: {NFT.metadata.name}</h1>
                 <p className="text-center">
                   Description: {NFT.metadata.description}
