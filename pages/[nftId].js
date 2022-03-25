@@ -60,6 +60,7 @@ function PreviewNFT() {
         address={address}
         disconnectButton={disconnectButton}
         toggleModal={toggleModal}
+        nftId
       />
       <section id="root">
         <div className="mainComponent">
