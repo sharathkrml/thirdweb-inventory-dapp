@@ -101,7 +101,7 @@ export default function Home() {
         </div>
       </nav>
       <h1 className="text-6xl text-center underline">
-        {myNFT ? "My Collection" : "Collection"}
+        {myNFT ? "My Inventory" : "Collection"}
       </h1>
       <section>
         <div className="m-10 grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
