@@ -1,6 +1,6 @@
 import { useNFTDrop, useAddress, useDisconnect } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
-import { CONTRACTADDRESS } from "../constants";
+import { CONTRACTADDRESS,OPENSEAURL } from "../constants";
 import ModalComponent from "../components/ModalComponent";
 import Modal from "react-modal";
 import { constants } from "ethers";
@@ -13,7 +13,6 @@ export default function Home() {
   const [allNFT, setAllNFT] = useState();
   const [myNFT, setMyNFT] = useState();
   const disconnectButton = useDisconnect();
-  const OpenseaUrl = "https://testnets.opensea.io/assets/mumbai/";
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -50,7 +49,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             href={
-              OpenseaUrl + CONTRACTADDRESS + "/" + nft.metadata.id.toString()
+              OPENSEAURL + CONTRACTADDRESS + "/" + nft.metadata.id.toString()
             }
           >
             <p className="text-center underline">Check it out on Opensea</p>
